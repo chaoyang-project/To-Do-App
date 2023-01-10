@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import TodoHeader from "./components/TodoHeader";
+import TodoInput from "./components/TodoInput";
+import TodoList from "./components/TodoList";
+import "./App.css";
+
+//data structure of todo => [{todoContent: "dafdafa", isCompleted: false}]
+
+//user input todo content => update todos  => pass todos to todoList component for rendering
 
 function App() {
+  const [todos, setTodos] = useState([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <TodoHeader todoHeaderContent={"Todo App"} />
+      <TodoInput setTodos={setTodos} />
+      <hr />
+      <TodoList todos={todos} setTodos={setTodos} />
     </div>
   );
 }
