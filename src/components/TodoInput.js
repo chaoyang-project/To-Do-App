@@ -1,23 +1,20 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTodo, addTodoTest } from "../actions";
 
-const TodoInput = ({ setTodos }) => {
+const TodoInput = () => {
   //local state => user input  => create a todo object  => add the todo object to array of todos
+  //dispatch addTodo to reducers => reducer will update the state => the components will be impacted the global state/redux will be re-rendering
   const [userInput, setUserInput] = useState("");
-  const addTodo = () => {
+  const dispatch = useDispatch();
+  const handleAddTodo = () => {
     if (!userInput.trim()) {
       setUserInput("");
       return;
     }
 
-    setTodos((prevTodos) => {
-      return [
-        ...prevTodos,
-        {
-          content: userInput,
-          isCompleted: false,
-        },
-      ];
-    });
+    addTodo(dispatch)(userInput);
+    // dispatch(addTodoTest(userInput));
     setUserInput("");
   };
 
@@ -30,7 +27,7 @@ const TodoInput = ({ setTodos }) => {
           setUserInput(e.target.value);
         }}
       />
-      <button onClick={addTodo}>Add</button>
+      <button onClick={handleAddTodo}>Add</button>
     </div>
   );
 };
